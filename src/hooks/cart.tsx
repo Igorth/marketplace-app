@@ -94,7 +94,7 @@ const CartProvider: React.FC = ({ children }) => {
       // TODO DECREMENTS A PRODUCT QUANTITY IN THE CART
       const newProducts = products.map(product => {
         if (product.id === id) {
-          if (product.quantity <= 1) {
+          if (product.quantity - 1 < 0) {
             return product;
           }
           product.quantity -= 1;

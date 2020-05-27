@@ -71,13 +71,11 @@ const CartProvider: React.FC = ({ children }) => {
   const increment = useCallback(
     async id => {
       // TODO INCREMENTS A PRODUCT QUANTITY IN THE CART
-      const newProducts = products.map(product => {
-        if (product.id === id) {
-          product.quantity += 1;
-        }
-        return product;
-      });
-
+      const newProducts = products.map(product =>
+        product.id === id
+          ? { ...product, quantity: product.quantity + 1 }
+          : product,
+      );
       setProducts(newProducts);
 
       await AsyncStorage.setItem(
@@ -91,16 +89,11 @@ const CartProvider: React.FC = ({ children }) => {
   const decrement = useCallback(
     async id => {
       // TODO DECREMENTS A PRODUCT QUANTITY IN THE CART
-      const newProducts = products.map(product => {
-        if (product.id === id) {
-          if (product.quantity - 1 < 0) {
-            return product;
-          }
-          product.quantity -= 1;
-        }
-        return product;
-      });
-
+      const newProducts = products.map(product =>
+        product.id === id
+          ? { ...product, quantity: product.quantity - 1 }
+          : product,
+      );
       setProducts(newProducts);
 
       await AsyncStorage.setItem(
